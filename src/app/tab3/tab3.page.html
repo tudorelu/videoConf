@@ -7,18 +7,20 @@
 </ion-header>
 
 <ion-content>
-	<ion-button color="primary" id="btn-init" (click)="initVideoCall()" >Initialize</ion-button>
-	<ion-button color="secondary" id="btn-open-room" (click)="openRoom()" >Open Room</ion-button>
-	<ion-button color="tertiary" id="btn-join-room" (click)="joinRoom()" >Join Room</ion-button><hr>
 
-	<video 
-	style="width: 45vw; overflow: hidden; margin:2vw; background-color: black;" 
-	controls="controls" 
-	preload="metadata" 
-	autoplay="autoplay" 
-	webkit-playsinline="webkit-playsinline" 
-	id="webRTC-video-me">
-		<!--<source src="../../assets/videos/test.mp4" type="video/mp4" />-->
-	</video>
+	<div style="flex:1; flex-direction: row;">
+	
+		<ion-button color="primary" id="btn-init" (click)="initVideoCall()" > Initialize </ion-button>
+		<hr>
+		<ion-button color="secondary" id="btn-open-room" (click)="openRoom()" > Open Room </ion-button>
+		<hr>
+		<ion-button color="tertiary" id="btn-join-room" (click)="joinRoom()" > Join Room </ion-button>
+		<hr>
+	
+	</div>
+
+	<hr/>
+
+	<div style="width: 85vw; height:65vh; overflow: hidden; margin:2vw; background-color: green;" id="videos-container"> </div>
 
 </ion-content>
