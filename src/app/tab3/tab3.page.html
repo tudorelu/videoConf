@@ -8,19 +8,78 @@
 
 <ion-content>
 
-	<div style="flex:1; flex-direction: row;">
-	
-		<ion-button color="primary" id="btn-init" (click)="initVideoCall()" > Initialize </ion-button>
-		<hr>
-		<ion-button color="secondary" id="btn-open-room" (click)="openRoom()" > Open Room </ion-button>
-		<hr>
-		<ion-button color="tertiary" id="btn-join-room" (click)="joinRoom()" > Join Room </ion-button>
-		<hr>
-	
-	</div>
+	<div 
+		style="margin: 20px 0; display: flex; justify-content: center; align-items: center; flex-direction: row;" 
+		id="videos-container"> </div>
+
+	<ion-grid>
+
+		<ion-row>			
+	 	 	<ion-label style="color:grey;">Your Name</ion-label>
+ 	 	</ion-row>
+ 	 	<ion-row>
+			<ion-input 
+				[(ngModel)]="name" 
+				clearInput 
+				placeholder="What is your name?" >
+			</ion-input>
+		</ion-row>
+
+		<ion-row>	
+ 	 		<ion-label style="color:grey;">Name of person you want to call </ion-label>
+ 	 	</ion-row>
+ 	 	<ion-row>
+			<ion-input 
+				[(ngModel)]="remoteName" 
+				clearInput 
+				placeholder="Who do you want to call?" >
+			</ion-input>
+		</ion-row>
+
+		<ion-row>
+			<ion-button  
+				style="flex:1;" 
+				color="tertiary" 
+				id="btn-make-call" 
+				(click)="makeCall()" >
+			Call </ion-button>
+
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				List of Available users to call:
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
 
 	<hr/>
 
-	<div style="width: 85vw; height:65vh; overflow: hidden; margin:2vw; background-color: green;" id="videos-container"> </div>
+			<ion-list *ngFor="let participant of participants">
+			    <ion-item>
+			        {{participant.name}}
+			    </ion-item>
+			</ion-list>
+	<hr/>
+
+	<div
+		style="display:flex;">
+
+		<ion-button  
+			style="flex:1;" 
+			color="primary" 
+			id="btn-open-room" 
+			(click)="openOrJoinRoom()" >
+		Open Or Join Room </ion-button>
+	
+		<ion-button  
+			style="flex:1;" 
+			color="secondary" 
+			id="btn-update-styling" 
+			(click)="updateVideosStyling()" >
+		Update Videos Styling </ion-button>
+
+	</div>
 
 </ion-content>
