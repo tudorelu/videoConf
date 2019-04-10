@@ -9,32 +9,33 @@
 <ion-content>
 
 	<div 
-		style="margin: 20px 0; display: flex; justify-content: center; align-items: center; flex-direction: row;" 
-		id="videos-container"> </div>
+		style="margin: 20px 0; display: flex; justify-content: center; align-items: center; flex-direction: column;" 
+		id="videos-container"> </div>2
 
-	<ion-grid>
+	<div
+		style="display:flex;">
 
-		<ion-row>			
-	 	 	<ion-label style="color:grey;">Your Name</ion-label>
- 	 	</ion-row>
- 	 	<ion-row>
+		<div style="flex:1">
+		 	<ion-label style="color:grey;">Your Name</ion-label>
+
 			<ion-input 
 				[(ngModel)]="name" 
 				clearInput 
 				placeholder="What is your name?" >
 			</ion-input>
-		</ion-row>
-
-		<ion-row>	
- 	 		<ion-label style="color:grey;">Name of person you want to call </ion-label>
- 	 	</ion-row>
- 	 	<ion-row>
-			<ion-input 
+		</div>
+	
+		<div style="flex:1">
+			<ion-label style="color:grey;"> Who you want to call (Name) </ion-label>
+ 	 		<ion-input 
 				[(ngModel)]="remoteName" 
 				clearInput 
 				placeholder="Who do you want to call?" >
 			</ion-input>
-		</ion-row>
+		</div>
+	</div>
+	
+	<ion-grid>
 
 		<ion-row>
 			<ion-button  
@@ -57,9 +58,12 @@
 	<hr/>
 
 			<ion-list *ngFor="let participant of participants">
-			    <ion-item>
-			        {{participant.name}}
-			    </ion-item>
+			    
+		        Name: {{participant.name}}
+		        <hr/>
+		        ID: <ion-input style="display:inline; margin-bottom: 5px;">{{participant.id}}</ion-input>
+
+
 			</ion-list>
 	<hr/>
 
@@ -70,8 +74,16 @@
 			style="flex:1;" 
 			color="primary" 
 			id="btn-open-room" 
-			(click)="openOrJoinRoom()" >
+			(click)="openOrJoinYourRoom()" >
 		Open Or Join Room </ion-button>
+
+
+		<ion-button  
+			style="flex:1;" 
+			color="primary" 
+			id="btn-open-room" 
+			(click)="openOrJoinOtherRoom()" >
+		Open Or Join Other Room </ion-button>
 	
 		<ion-button  
 			style="flex:1;" 

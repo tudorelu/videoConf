@@ -18,11 +18,26 @@ export class Tab3Page {
 	callerId: string = "";
 	remoteCallerId: string = "";
 	
-	participants: any = [{name:"Jamaica"}, {name:"Hameia"}, {name:"Geroma"}];
-	predefinedRoomId: string = "1234xxxQ";
-	
+	participants: any = [];
+	predefinedRoomId: string = "DEFAULT_ROOM_ID";
+
 	ionViewDidEnter() {
-	    var connection = this.connection;
+
+	    let connection = this.connection;
+	 	let participants = this.participants;
+
+	 	// set name
+	 	this.name = "Guest User " + (participants.length+1)
+	 	
+	 	// set room id
+		this.predefinedRoomId = Math.round((Math.random() * 100)) +"_MEDCONNET"
+
+		// add participant to list
+        participants.push({
+    		name: this.name, 
+    		roomId: this.predefinedRoomId
+    	});
+
 	    connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 	    connection.session = {
 	        audio: true,
@@ -31,11 +46,11 @@ export class Tab3Page {
 
 	 	let videoContainer = document.getElementById('videos-container');
 	 	connection.videosContainer = videoContainer;
+
 		connection.onNewParticipant = function(participantId, userPreferences) {
-		    var message = participantId + ' is trying to join your room. Confirm to accept his request.';
+		    var message = 'Guest User '+ (participants.length+1) + ' ('+ participantId + ') is trying to join your room. Confirm to accept his request.';
 		    if( window.confirm(message) ) {
 		        connection.acceptParticipationRequest(participantId, userPreferences);
-		        this.participants.push({name:participantId});
 		    }
 		};
   	}
@@ -44,24 +59,30 @@ export class Tab3Page {
 
 		console.log("Videos are : ")
 		var children = this.connection.videosContainer.childNodes;
- 		children.forEach(function(item){
-		    console.log(item.id);
-		    item.style.width = "90vw";
-		    item.style.height = "60vh";
-		});
+		if (children.length > 2){
+			this.connection.videosContainer.style.
+	 		children.forEach(function(item){
+			    console.log(item.id);
+			    item.style.flex = "2";
+			});
 
- 		var local_stream = children[children.length - 1];
- 		local_stream.style.width = "40vw";
-		local_stream.style.height = "30vh";
+	 		var local_stream = children[children.length - 1];
+	 		local_stream.style.flex = "1";
+	 	}
 	}
 
 	makeCall(){
-		console.log("Me, "+this.name+" Calling "+this.remoteName+", id: "+this.remoteCallerId);
+		console.log("Me "+this.name+", calling "+this.remoteName+", id "+this.remoteCallerId);
 	}
 
-    openOrJoinRoom(){
+    openOrJoinYourRoom(){
         console.log("Open Room Clicked");
         this.connection.openOrJoin( this.predefinedRoomId );
+    }
+    
+    openOrJoinOtherRoom(){
+        console.log("Open Room Clicked");
+        this.connection.openOrJoin( this.remoteName );
     }
 
 }
